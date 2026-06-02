@@ -1,59 +1,111 @@
-# BankingAppModule
+# Banking Transactions Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+## Overview
 
-## Development server
+This project is a banking transactions web application built using Angular and Bootstrap. The application allows users to create bank accounts, transfer funds between accounts, and view transaction history through a simple and intuitive interface.
 
-To start a local development server, run:
+## Features
+
+### Account Creation
+
+- Create new accounts with an initial balance.
+- Select account type (Savings or Chequing).
+- Conditional button styling based on account type.
+- Input validation using Angular Reactive Forms.
+
+### Fund Transfers
+
+- Transfer funds between accounts.
+- Validation to prevent negative transfers.
+- Validation to prevent transfers exceeding available account balances.
+- Prevention of transfers to the same account.
+
+### Transaction History
+
+- View transaction history for all accounts.
+- Filter transactions by account.
+- Search transactions by account name or amount.
+- View transaction date, source account, destination account, and amount.
+
+### Reusable Components
+
+- Custom reusable button component.
+- SharedModule implementation for reusable UI components.
+
+### Routing
+
+The application includes navigation between:
+
+- Account Creation
+- Transactions
+- Transaction History
+
+## Technologies Used
+
+- Angular 20
+- TypeScript
+- Bootstrap 5
+- Angular Router
+- Angular Reactive Forms
+
+## Project Structure
+
+```text
+src/app
+├── pages
+│   ├── account-creation
+│   ├── transactions
+│   └── history
+├── services
+│   └── banking
+├── shared
+│   ├── custom-button
+│   └── shared-module
+├── app-module.ts
+└── app-routing-module.ts
+```
+
+## Installation
+
+### Prerequisites
+
+- Node.js
+- Angular CLI
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Run the Application
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Design Decisions
 
-```bash
-ng generate --help
-```
+### Reactive Forms
 
-## Building
+Reactive Forms were used with FormBuilder, FormGroup, and Validators to provide structured form handling and validation.
 
-To build the project run:
+### Shared Module
 
-```bash
-ng build
-```
+The reusable button component is contained within a SharedModule and imported where required to promote modularity and reusability.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### State Management
 
-## Running unit tests
+Application data is stored in a shared Banking service, which acts as the single source of truth for account and transaction data.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Assumptions
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Data is stored in memory and resets when the application is refreshed.
+- No backend or database integration is included.
+- Account identifiers are generated using timestamps for demonstration purposes.

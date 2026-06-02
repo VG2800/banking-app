@@ -1,0 +1,75 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Transfer Funds</h3>
+  </div>
+
+  <div class="card-body">
+    <div *ngIf="accounts.length < 2" class="alert alert-warning">
+      Please create at least two accounts before making a transfer.
+    </div>
+
+    <form
+      *ngIf="accounts.length >= 2"
+      [formGroup]="transferForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="mb-3">
+        <label class="form-label">From Account</label>
+
+        <select class="form-select" formControlName="fromAccountId">
+          <option value="">Select account</option>
+
+          <option *ngFor="let account of accounts" [value]="account.id">
+            {{ account.name }} - {{ account.type }} -
+            {{ account.balance | currency: "CAD" }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">To Account</label>
+
+        <select class="form-select" formControlName="toAccountId">
+          <option value="">Select account</option>
+
+          <option *ngFor="let account of accounts" [value]="account.id">
+            {{ account.name }} - {{ account.type }} -
+            {{ account.balance | currency: "CAD" }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Amount</label>
+
+        <input type="number" class="form-control" formControlName="amount" />
+
+        <div
+          *ngIf="amount?.touched && amount?.hasError('min')"
+          class="text-danger mt-1"
+        >
+          Amount must be greater than 0.
+        </div>
+      </div>
+
+      <app-custom-button
+        text="Transfer Funds"
+        type="submit"
+        buttonClass="btn-primary"
+        [disabled]="transferForm.invalid"
+      >
+      </app-custom-button>
+    </form>
+
+    <div
+      *ngIf="transferMessage"
+      class="alert mt-3"
+      [ngClass]="{
+        'alert-success': transferSuccess,
+        'alert-danger': !transferSuccess,
+      }"
+    >
+      {{ transferMessage }}
+    </div>
+  </div>
+</div>

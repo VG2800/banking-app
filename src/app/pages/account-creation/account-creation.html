@@ -1,0 +1,95 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Create Account</h3>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label"> Account Name </label>
+
+        <input type="text" class="form-control" formControlName="name" />
+        <div
+          *ngIf="name?.touched && name?.hasError('required')"
+          class="text-danger mt-1"
+        >
+          Account name is required
+        </div>
+
+        <div
+          *ngIf="name?.touched && name?.hasError('minlength')"
+          class="text-danger mt-1"
+        >
+          Minimum 3 characters required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"> Initial Balance </label>
+
+        <input type="number" class="form-control" formControlName="balance" />
+        <div
+          *ngIf="balance?.touched && balance?.hasError('min')"
+          class="text-danger mt-1"
+        >
+          Balance cannot be negative
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label"> Account Type </label>
+
+        <div>
+          <input type="radio" value="Savings" formControlName="type" />
+
+          Savings
+        </div>
+
+        <div>
+          <input type="radio" value="Chequing" formControlName="type" />
+
+          Chequing
+        </div>
+      </div>
+
+      <app-custom-button
+        [text]="
+          accountForm.value.type === 'Savings'
+            ? 'Create Savings Account'
+            : 'Create Chequing Account'
+        "
+        type="submit"
+        [disabled]="accountForm.invalid"
+        [buttonClass]="
+          accountForm.value.type === 'Savings' ? 'btn-success' : 'btn-primary'
+        "
+      >
+      </app-custom-button>
+    </form>
+    <hr />
+
+    <div *ngIf="accounts.length > 0">
+      <h4>Created Accounts</h4>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let account of accounts">
+            <td>{{ account.name }}</td>
+
+            <td>{{ account.type }}</td>
+
+            <td>{{ account.balance | currency: "CAD" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
