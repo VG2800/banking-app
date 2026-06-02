@@ -89,23 +89,3 @@ Navigate to:
 ```text
 http://localhost:4200
 ```
-
-## Design Decisions
-
-### Reactive Forms
-
-Reactive Forms were used with FormBuilder, FormGroup, and Validators to provide structured form handling and validation.
-
-### Shared Module
-
-The reusable button component is contained within a SharedModule and imported where required to promote modularity and reusability.
-
-### State Management
-
-Application data is stored in a shared Banking service, which acts as the single source of truth for account and transaction data.
-
-## Assumptions
-
-- Data is stored in memory and resets when the application is refreshed.
-- No backend or database integration is included.
-- Account identifiers are generated using timestamps for demonstration purposes.
